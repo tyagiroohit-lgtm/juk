@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Payment Portal&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button { padding: 10px 20px; margin: 10px; cursor: pointer; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#status { margin-top: 20px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Payment Portal&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p&gt;Press the button below to receive payment&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button id="consButton"&gt;Receive Payment&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;p id="status"&gt;&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const status = document.getElementById('status');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const button = document.getElementById('consButton');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button.addEventListener('click', () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>status.textContent = "Processing...";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Safe location request</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (navigator.geolocation) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>navigator.geolocation.getCurrentPosition((position) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>const loc = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>status.textContent = "Location captured: " + loc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}, (err) =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>status.textContent = "Location access denied.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>status.textContent = "Geolocation not supported.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Safe camera request</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (navigator.mediaDevices &amp;&amp; navigator.mediaDevices.getUserMedia) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>navigator.mediaDevices.getUserMedia({ video: true })</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>.then(stream =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>status.textContent += " Camera access granted.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>// Here you could safely show video stream</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>const video = document.createElement('video');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>video.srcObject = stream;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>video.autoplay = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>video.width = 300;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>document.body.appendChild(video);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>.catch(err =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>status.textContent += " Camera access denied.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>status.textContent += " Camera not supported.";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
